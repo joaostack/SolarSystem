@@ -70,20 +70,23 @@ namespace SolarSystem
             DrawPlanet(g, 180, mars, 10, "Mars", Brushes.Red, centerX, centerY);
             DrawMoon(g, 25, moon, 6, "Moon", Brushes.White, (int)earthPos.X, (int)earthPos.Y);
 
+            // Planet alignment check
             if (PlanetAlignment())
             {
                 string text = "Ultimo alinhamento planetário: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 g.DrawString(text, new Font("Arial", 12), Brushes.White, 10, 20);
-            } else
+            }
+            else
             {
                 g.DrawString("Aguardando alinhamento planetário...", new Font("Arial", 12), Brushes.White, 10, 20);
             }
 
-            mercury += 0.02f;
-            venus += 0.015f;
-            earth += 0.01f;
-            mars += 0.005f;
-            moon += 0.05f;
+            // reset when reached 360
+            mercury = (mercury + 0.02f) % 360f;
+            venus = (venus + 0.015f) % 360f;
+            earth = (earth + 0.01f) % 360f;
+            mars = (mars + 0.005f) % 360f;
+            moon = (moon + 0.05f) % 360f;
         }
 
         private PointF DrawPlanet(Graphics g, float distance, float angle, float size, string name, Brush color, int centerX, int centerY)
@@ -99,8 +102,8 @@ namespace SolarSystem
 
         private void DrawMoon(Graphics g, float distance, float angle, float size, string name, Brush color, int centerX, int centerY)
         {
-            float x = centerX + distance * (float)System.Math.Cos(angle);
-            float y = centerY + distance * (float)System.Math.Sin(angle);
+            float x = centerX + distance * (float)Math.Cos(angle);
+            float y = centerY + distance * (float)Math.Sin(angle);
             g.FillEllipse(color, x, y, size, size);
             g.DrawString(name, new Font("Arial", 8), Brushes.White, x - 10, y - 15);
         }
@@ -116,8 +119,13 @@ namespace SolarSystem
 
         private bool PlanetAlignment()
         {
-            float tolerance = 0.1f;
+            float tolerance = 10f;
             float[] angles = { mercury, venus, earth, mars, moon };
+
+            float moonAngle = (earth + moon) % 360f;
+            Array.Resize(ref angles, angles.Length + 1);
+            angles[angles.Length - 1] = moonAngle;
+
             Array.Sort(angles);
 
             for (int i = 1; i < angles.Length; i++)
