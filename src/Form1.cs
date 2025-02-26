@@ -19,6 +19,7 @@ namespace SolarSystem
         {
             InitializeComponent();
 
+            this.KeyPreview = true;
             this.Size = new Size(500, 500);
             this.Paint += new PaintEventHandler(SolarSystemDraw);
             this.Resize += (sender, e) => { GenerateStars(); this.Invalidate(); };
@@ -56,12 +57,12 @@ namespace SolarSystem
             // Planet alignment check
             if (PlanetAlignment())
             {
-                string text = "Ultimo alinhamento planet√°rio: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                string text = "Ultimo alinhamento planet·rio: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 g.DrawString(text, new Font("Arial", 12), Brushes.White, 10, 20);
             }
             else
             {
-                g.DrawString("Aguardando alinhamento planet√°rio...", new Font("Arial", 12), Brushes.White, 10, 20);
+                g.DrawString("Aguardando alinhamento planet·rio...", new Font("Arial", 12), Brushes.White, 10, 20);
             }
 
             DrawStars(g);
@@ -119,7 +120,7 @@ namespace SolarSystem
 
         private bool PlanetAlignment()
         {
-            float tolerance = 10f;
+            float tolerance = 5f;
             float[] angles = { mercury, venus, earth, mars, moon };
 
             float moonAngle = (earth + moon) % 360f;
@@ -137,6 +138,22 @@ namespace SolarSystem
             }
 
             return true;
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                timer.Interval = 17;
+            }
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                timer.Interval = 50;
+            }
         }
     }
 }

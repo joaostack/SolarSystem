@@ -34,10 +34,11 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Black;
             ClientSize = new Size(804, 494);
             Name = "Form1";
             Text = "SolarSystem";
+            KeyDown += Form1_KeyDown;
+            KeyUp += Form1_KeyUp;
             ResumeLayout(false);
         }
 
