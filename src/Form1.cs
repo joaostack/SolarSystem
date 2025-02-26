@@ -19,7 +19,7 @@ namespace SolarSystem
         {
             InitializeComponent();
 
-            this.Size = new Size(800, 800);
+            this.Size = new Size(500, 500);
             this.Paint += new PaintEventHandler(SolarSystemDraw);
             this.Resize += (sender, e) => { GenerateStars(); this.Invalidate(); };
 
