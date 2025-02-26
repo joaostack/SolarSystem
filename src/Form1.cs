@@ -53,6 +53,17 @@ namespace SolarSystem
             Graphics g = e.Graphics;
             g.Clear(Color.Black);
 
+            // Planet alignment check
+            if (PlanetAlignment())
+            {
+                string text = "Ultimo alinhamento planetário: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                g.DrawString(text, new Font("Arial", 12), Brushes.White, 10, 20);
+            }
+            else
+            {
+                g.DrawString("Aguardando alinhamento planetário...", new Font("Arial", 12), Brushes.White, 10, 20);
+            }
+
             DrawStars(g);
 
             int centerX = this.ClientSize.Width / 2;
@@ -69,17 +80,6 @@ namespace SolarSystem
             DrawPlanet(g, 100, venus, 15, "Venus", Brushes.Orange, centerX, centerY);
             DrawPlanet(g, 180, mars, 10, "Mars", Brushes.Red, centerX, centerY);
             DrawMoon(g, 25, moon, 6, "Moon", Brushes.White, (int)earthPos.X, (int)earthPos.Y);
-
-            // Planet alignment check
-            if (PlanetAlignment())
-            {
-                string text = "Ultimo alinhamento planetário: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                g.DrawString(text, new Font("Arial", 12), Brushes.White, 10, 20);
-            }
-            else
-            {
-                g.DrawString("Aguardando alinhamento planetário...", new Font("Arial", 12), Brushes.White, 10, 20);
-            }
 
             // reset when reached 360
             mercury = (mercury + 0.02f) % 360f;
