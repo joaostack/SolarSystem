@@ -54,6 +54,9 @@ namespace SolarSystem
             Graphics g = e.Graphics;
             g.Clear(Color.Black);
 
+            string controls = "Pressione espaço para aumentar a velocidade";
+            g.DrawString(controls, new Font("Arial", 12), Brushes.White, 10, 40);
+
             // Planet alignment check
             if (PlanetAlignment())
             {
