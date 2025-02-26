@@ -73,12 +73,12 @@ namespace SolarSystem
             // Planet alignment check
             if (PlanetAlignment())
             {
-                string text = "Ultimo alinhamento planet·rio: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                string text = "Ultimo alinhamento planet√°rio: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 g.DrawString(text, new Font("Arial", 12), Brushes.White, 10, 20);
             }
             else
             {
-                g.DrawString("Aguardando alinhamento planet·rio...", new Font("Arial", 12), Brushes.White, 10, 20);
+                g.DrawString("Aguardando alinhamento planet√°rio...", new Font("Arial", 12), Brushes.White, 10, 20);
             }
 
             // reset when reached 360
@@ -91,8 +91,8 @@ namespace SolarSystem
 
         private PointF DrawPlanet(Graphics g, float distance, float angle, float size, string name, Brush color, int centerX, int centerY)
         {
-            float x = 400 + distance * (float)System.Math.Cos(angle);
-            float y = 400 + distance * (float)System.Math.Sin(angle);
+            float x = centerX + distance * (float)System.Math.Cos(angle);
+            float y = centerY + distance * (float)System.Math.Sin(angle);
             g.FillEllipse(color, x - size / 2, y - size / 2, size, size);
 
             g.DrawString(name, new Font("Arial", 8), Brushes.White, x - 15, y - 20);
